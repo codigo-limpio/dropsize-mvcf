@@ -175,6 +175,8 @@ class FDropSize extends Slim {
                 PhpClass::import("dependence/" . $controller . "Dependence");
 
                 if (class_exists($controller . "Controller")) {
+                    
+                    self::fnAutoLoad($controller, $action);
 
                     $lstClaseController = $controller . "Controller";
                     $lobClassController = new $lstClaseController($args);
@@ -208,8 +210,6 @@ class FDropSize extends Slim {
 
         if (class_exists($controller . "Dependence")) {
 
-            self::fnAutoLoad($controller, $action);
-
             $lstClaseDependence = $controller . "Dependence";
             $lobClassDependece = new $lstClaseDependence();
 
@@ -217,7 +217,8 @@ class FDropSize extends Slim {
                 throw new Exception("Acci&oacute;n no definida 8");
             else
                 $larDependencias = call_user_func_array(
-                        array($lobClassDependece, $action), array());
+                        array($lobClassDependece, $action), array()
+                );
         } else {
             throw new Exception("Dependencia no identificada 6");
         }
